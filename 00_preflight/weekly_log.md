@@ -1,4 +1,4 @@
-# Weekly Progress Log
+# Weekly Log
 
 ## Week 1 (Start: [today's date])
 
@@ -15,4 +15,4 @@
 - 
 
 **Key Lesson Learned:**
-- 
+-
