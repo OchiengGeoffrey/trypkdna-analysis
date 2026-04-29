@@ -1,0 +1,27 @@
+name: tryp-kdna
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base=4.3.0
+  - r-tidyverse
+  - bioconductor-deseq2
+  - bioconductor-tximport
+  - bioconductor-msa
+  - bioconductor-ggmsa
+  - bioconductor-clusterprofiler
+  - bioconductor-enhancedvolcano
+  - r-rentrez
+  - r-phytools
+  - python
+  - biopython
+  - snakemake
+  - mafft
+  - iqtree
+  - salmon
+  - fastqc
+  - multiqc
+  - sra-tools
+  - paml
+  - orthofinder
+  - bioconda::busco
