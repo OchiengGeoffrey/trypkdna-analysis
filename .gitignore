@@ -1,0 +1,9 @@
+_pycache_/
+*.pyc
+.Rhistory
+.RData
+.DS_Store
+00_preflight/session_notes.md
+# BUSCO and other tool logs
+*.log
+busco_output/
