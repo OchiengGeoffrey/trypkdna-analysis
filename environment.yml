@@ -13,7 +13,7 @@ dependencies:
   - bioconductor-enhancedvolcano
   - r-rentrez
   - r-phytools
-  - python
+  - python=3.11.9
   - biopython
   - snakemake
   - mafft
