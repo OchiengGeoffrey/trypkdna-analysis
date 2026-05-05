@@ -1,0 +1,74 @@
+name: tryp-kdna
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+# IMPORTANT: Removed strict version pins (=X.Y.Z) that caused conflicts.
+# Conda/mamba will resolve to compatible versions automatically.
+
+dependencies:
+  # Core system
+  - python>=3.9,<4.0
+  - pip
+  - mamba
+
+  # Pipeline orchestration
+  - snakemake>=7.0
+
+  # Sequence handling & QC
+  - blast
+  - samtools
+  - seqtk
+  - sra-tools
+  - fastqc
+  - multiqc
+
+  # Genome assembly QC
+  # NOTE: Removed strict =5.5.0 pin (caused sepp dependency issues)
+  # Will install latest compatible version
+  - busco>=5.0
+
+  # Phylogenetics & selection
+  - iqtree
+  - mafft
+  - trimal
+  - phyml
+  - paml
+  - orthofinder
+
+  # RNA-seq quantification
+  - salmon
+
+  # R base and core libraries
+  # NOTE: Removed strict =4.3 pin - will install latest R 4.x
+  - r-base>=4.0
+  - r-tidyverse
+  - r-ggplot2
+  - r-reshape2
+  - r-cowplot
+  - r-devtools
+  - r-irkernel
+
+  # Bioconductor packages
+  - bioconductor-biostrings
+  - bioconductor-msa
+  - bioconductor-deseq2
+  - bioconductor-ggmsa
+  - bioconductor-enhancedvolcano
+  - bioconductor-clusterprofiler
+  - bioconductor-tximport
+
+  # R packages from CRAN
+  - r-phytools
+  - r-rentrez
+
+  # Utilities
+  - wget
+  - curl
+  - unzip
+  - git
+
+# Optional: Uncomment to add packages via pip if conda version is problematic
+# pip:
+#   - package-name==version

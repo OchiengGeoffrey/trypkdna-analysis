@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Snakemake (if you later use it)
+.snakemake/
+
+# Conda environment (but keep environment.yml)
+/envs/               # if you create this folder
+*.egg-info/
+
+# Large data files – DO NOT TRACK
+data/
+results/
+logs/
+tmp/
+
+# Specific sequence and alignment files (large or derivable)
+*.fasta
+*.fa
+*.faa
+*.fastq
+*.bam
+*.sam
+*.zip
+*.tar.gz
+*.gz
+
+# BUSCO outputs (large intermediate)
+busco_downloads/
+*/busco_downloads/
+00_preflight/*/busco/      # adjust if BUSCO puts outputs there
+
+# Tool logs (can be regenerated)
+*.log
+
+# Temporary files
+*~
+*.swp
+*.swo
