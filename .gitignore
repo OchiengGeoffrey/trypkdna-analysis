@@ -35,6 +35,7 @@ tmp/
 *.zip
 *.tar.gz
 *.gz
+*.fna
 
 # BUSCO outputs (large intermediate)
 busco_downloads/
