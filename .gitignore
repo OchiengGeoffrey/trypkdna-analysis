@@ -41,6 +41,8 @@ tmp/
 busco_downloads/
 */busco_downloads/
 00_preflight/*/busco/      # adjust if BUSCO puts outputs there
+00_preflight/results/
+00_preflight/logs/
 
 # Tool logs (can be regenerated)
 *.log
