@@ -64,24 +64,31 @@ busco_long <- busco_pct %>%
   select(Genome, Single_pct, Duplicated_pct, Fragmented_pct, Missing_pct) %>%
   pivot_longer(-Genome, names_to = "Category", values_to = "Percent")
 
-# Clean category names
+# Clean category names (full BUSCO official terminology with line breaks)
 busco_long <- busco_long %>%
   mutate(Category = recode(Category,
-                           "Single_pct" = "Complete & single-copy (S)",
-                           "Duplicated_pct" = "Complete & duplicated (D)",
+                           "Single_pct" = "Complete &\nSingle-copy (S)",
+                           "Duplicated_pct" = "Complete &\nDuplicated (D)",
                            "Fragmented_pct" = "Fragmented (F)",
-                           "Missing_pct" = "Missing (M)"))
+                           "Missing_pct" = "Missing (M)")) %>%
+  # Set factor levels to control stacking order (left to right in horizontal bar)
+  mutate(Category = factor(Category, 
+                           levels = c("Complete &\nSingle-copy (S)", "Complete &\nDuplicated (D)", 
+                                     "Fragmented (F)", "Missing (M)")))
 
-# Plot
+# Plot with improved legend layout
 p <- ggplot(busco_long, aes(x = Genome, y = Percent, fill = Category)) +
   geom_bar(stat = "identity", width = 0.7) +
   coord_flip() +
-  scale_fill_manual(values = c(
-    "Complete & single-copy (S)" = "#4C72B0",
-    "Complete & duplicated (D)" = "#55A868",
-    "Fragmented (F)" = "#F1C40F",
-    "Missing (M)" = "#E74C3C"
-  )) +
+  scale_fill_manual(
+    values = c(
+      "Complete &\nSingle-copy (S)" = "#4C72B0",
+      "Complete &\nDuplicated (D)" = "#55A868",
+      "Fragmented (F)" = "#F1C40F",
+      "Missing (M)" = "#E74C3C"
+    ),
+    breaks = c("Complete &\nSingle-copy (S)", "Complete &\nDuplicated (D)", "Fragmented (F)", "Missing (M)")
+  ) +
   theme_minimal(base_size = 12) +
   labs(
     title = "BUSCO Assessment Results",
@@ -90,13 +97,34 @@ p <- ggplot(busco_long, aes(x = Genome, y = Percent, fill = Category)) +
     x = "",
     fill = "Category"
   ) +
-  theme(legend.position = "bottom",
-        plot.title = element_text(face = "bold"),
-        axis.text.x = element_text(angle = 0, hjust = 0.5))
+  theme(
+    # Legend positioning and layout
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.title.position = "top",
+    legend.title = element_text(hjust = 0.5, face = "bold", size = 11),
+    legend.box.spacing = unit(0.5, "cm"),
+    legend.spacing.x = unit(0.8, "cm"),
+    
+    # Legend box styling (clean border)
+    legend.background = element_rect(fill = "white", color = "black", linewidth = 0.5),
+    legend.key = element_rect(fill = "white", color = NA),
+    legend.margin = margin(t = 10, r = 15, b = 10, l = 15, unit = "pt"),
+    
+    # Plot title (centered)
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 14),
+    plot.subtitle = element_text(hjust = 0.5, size = 11),
+    
+    # Axis styling
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    
+    # Add bottom margin to plot to prevent legend cutoff
+    plot.margin = margin(t = 10, r = 10, b = 70, l = 10, unit = "pt")
+  )
 
 output_dir <- dirname(files[1])
-ggsave(file.path(output_dir, "busco_plot.png"), p, width = 8, height = 5, dpi = 300)
-ggsave(file.path(output_dir, "busco_plot.pdf"), p, width = 8, height = 5)
+ggsave(file.path(output_dir, "busco_plot.png"), p, width = 8, height = 5.5, dpi = 300)
+ggsave(file.path(output_dir, "busco_plot.pdf"), p, width = 8, height = 5.5)
 
 print(p)
 cat("Plot saved to:", file.path(output_dir, "busco_plot.png"), "\n")
