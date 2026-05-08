@@ -92,33 +92,24 @@ p <- ggplot(busco_long, aes(x = Genome, y = Percent, fill = Category)) +
   theme_minimal(base_size = 12) +
   labs(
     title = "BUSCO Assessment Results",
-    subtitle = paste("Lineage: trypanosoma_odb12 | Genome:", paste(busco_data$Genome, collapse = ", ")),
+    subtitle = "Lineage: trypanosoma_odb12 | Genome: Trypanosoma equiperdum OVI strain",
     y = "Percentage (%)",
     x = "",
     fill = "Category"
   ) +
   theme(
-    # Legend positioning and layout
     legend.position = "bottom",
     legend.direction = "horizontal",
     legend.title.position = "top",
     legend.title = element_text(hjust = 0.5, face = "bold", size = 11),
     legend.box.spacing = unit(0.5, "cm"),
     legend.spacing.x = unit(0.8, "cm"),
-    
-    # Legend box styling (clean border)
     legend.background = element_rect(fill = "white", color = "black", linewidth = 0.5),
     legend.key = element_rect(fill = "white", color = NA),
     legend.margin = margin(t = 10, r = 15, b = 10, l = 15, unit = "pt"),
-    
-    # Plot title (centered)
     plot.title = element_text(face = "bold", hjust = 0.5, size = 14),
     plot.subtitle = element_text(hjust = 0.5, size = 11),
-    
-    # Axis styling
     axis.text.x = element_text(angle = 0, hjust = 0.5),
-    
-    # Add bottom margin to plot to prevent legend cutoff
     plot.margin = margin(t = 10, r = 10, b = 70, l = 10, unit = "pt")
   )
 
