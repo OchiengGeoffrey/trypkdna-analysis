@@ -3,44 +3,41 @@ library(tidyverse)
 # Path to BUSCO results
 busco_dir <- "00_preflight/results/busco"
 
-# Find all summary files recursively (your file is in ovi_busco/)
-files <- list.files(busco_dir,
-                    pattern = "short_summary.*\\.txt",
-                    recursive = TRUE,
-                    full.names = TRUE)
+# Find all summary files recursively
+all_files <- list.files(busco_dir, pattern = "short_summary.*\\.txt", recursive = TRUE, full.names = TRUE)
+
+# Exclude files inside any 'run_' subdirectory
+files <- all_files[!grepl("/run_", all_files)]
 
 if (length(files) == 0) {
-  stop("No BUSCO summary files found.")
+  stop("No valid BUSCO summary files found (excluding /run_/ directories).")
 }
 
-# Function to parse BUSCO summary (handles percentages and counts)
+# Function to parse BUSCO summary
 parse_busco <- function(file) {
   text <- readLines(file)
-  # Find the line starting with "C:"
-  summary_line <- text[grepl("^C:", text)]
+  # Find line containing "C:" (allow leading whitespace)
+  summary_line <- text[grepl("C:", text)]
+  if (length(summary_line) == 0) {
+    stop(paste("No C: line found in file:", file))
+  }
   
-  # Extract numbers with percentages and counts
-  # Example: "C:97.8%[S:97.7%,D:0.0%],F:0.5%,M:1.8%,n:5397"
-  # Or older format without %: "C:97.8[S:97.7,D:0.0],F:0.5,M:1.8,n:5397"
+  # Remove any leading/trailing whitespace
+  summary_line <- trimws(summary_line)
   
   # Remove % signs if present
   cleaned <- gsub("%", "", summary_line)
   
-  # Extract using regex
-  # Pattern: C:(\d+\.?\d*).*S:(\d+\.?\d*).*D:(\d+\.?\d*).*F:(\d+\.?\d*).*M:(\d+\.?\d*).*n:(\d+)
+  # Extract numbers
   matches <- str_match(cleaned,
                        "C:([0-9.]+).*S:([0-9.]+).*D:([0-9.]+).*F:([0-9.]+).*M:([0-9.]+).*n:([0-9]+)")
   
   if (is.na(matches[1])) {
-    # Try alternative format where numbers are counts inside brackets
-    # Example: "C:97.8%[S:97.7%,D:0.0%],F:0.5%,M:1.8%,n:5397"
-    # But the above regex should work. If not, fallback:
-    matches <- str_match(cleaned,
-                         "C:([0-9.]+).*S:([0-9.]+).*D:([0-9.]+).*F:([0-9.]+).*M:([0-9.]+).*n:([0-9]+)")
+    stop(paste("Could not parse C: line in file:", file))
   }
   
   data.frame(
-    Genome = gsub("_short_summary.*", "", basename(file)),
+    Genome = basename(dirname(file)),
     Complete = as.numeric(matches[2]),
     Single = as.numeric(matches[3]),
     Duplicated = as.numeric(matches[4]),
@@ -50,11 +47,10 @@ parse_busco <- function(file) {
   )
 }
 
-# Parse all files
+# Parse all valid files
 busco_data <- bind_rows(lapply(files, parse_busco))
 
-# Convert to percentages (if not already percentages)
-# Our numbers are already percentages, but ensure they are ≤100
+# Convert to percentages (values are already percentages)
 busco_pct <- busco_data %>%
   mutate(
     Single_pct = Single,
@@ -68,7 +64,7 @@ busco_long <- busco_pct %>%
   select(Genome, Single_pct, Duplicated_pct, Fragmented_pct, Missing_pct) %>%
   pivot_longer(-Genome, names_to = "Category", values_to = "Percent")
 
-# Clean category names for legend
+# Clean category names
 busco_long <- busco_long %>%
   mutate(Category = recode(Category,
                            "Single_pct" = "Complete & single-copy (S)",
@@ -89,7 +85,7 @@ p <- ggplot(busco_long, aes(x = Genome, y = Percent, fill = Category)) +
   theme_minimal(base_size = 12) +
   labs(
     title = "BUSCO Assessment Results",
-    subtitle = paste("Lineage: trypanosoma_odb12 |", nrow(busco_data), "genome(s)"),
+    subtitle = paste("Lineage: trypanosoma_odb12 | Genome:", paste(busco_data$Genome, collapse = ", ")),
     y = "Percentage (%)",
     x = "",
     fill = "Category"
@@ -98,11 +94,9 @@ p <- ggplot(busco_long, aes(x = Genome, y = Percent, fill = Category)) +
         plot.title = element_text(face = "bold"),
         axis.text.x = element_text(angle = 0, hjust = 0.5))
 
-# Save plot to the same directory as the summary file
-output_dir <- dirname(files[1])  # gets the directory containing the first summary file
+output_dir <- dirname(files[1])
 ggsave(file.path(output_dir, "busco_plot.png"), p, width = 8, height = 5, dpi = 300)
 ggsave(file.path(output_dir, "busco_plot.pdf"), p, width = 8, height = 5)
 
-# Print to console
 print(p)
 cat("Plot saved to:", file.path(output_dir, "busco_plot.png"), "\n")
