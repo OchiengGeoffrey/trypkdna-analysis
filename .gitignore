@@ -1,59 +1,80 @@
-# Python
+# ============================================================
+# PYTHON / R / SYSTEM
+# ============================================================
 __pycache__/
 *.pyc
 *.pyo
-
-# R
 .Rhistory
 .RData
 .Rproj.user/
-
-# macOS / Windows
 .DS_Store
 Thumbs.db
-# SRA downloads
-*.sra
-*.sra.vdbcache
-SRR*/
-# Snakemake (if you later use it)
-.snakemake/
-
-# Conda environment (but keep environment.yml)
-/envs/               # if you create this folder
-*.egg-info/
-
-# Large data files – DO NOT TRACK
-data/
-results/
-logs/
-tmp/
-
-# Specific sequence and alignment files (large or derivable)
-*.fasta
-*.fa
-*.faa
-*.fastq
-*.bam
-*.sam
-*.zip
-*.tar.gz
-*.gz
-*.fna
-*.fq
-
-# BUSCO outputs (large intermediate)
-busco_downloads/
-*/busco_downloads/
-00_preflight/*/busco/      # adjust if BUSCO puts outputs there
-00_preflight/results/
-00_preflight/logs/
-00_preflight/session_notes.md
-
-# Tool logs (can be regenerated)
-*.log
-
-# Temporary files
 *~
 *.swp
 *.swo
 .vscode/
+
+# ============================================================
+# CONDA / ENVIRONMENTS
+# ============================================================
+/envs/
+*.egg-info/
+
+# ============================================================
+# LARGE REGENERABLE DATA - DO NOT TRACK
+# ============================================================
+
+# BLAST databases (regenerable from source FASTA)
+data/genomes/blastdb/
+
+# SRA downloads and conversions (regenerable from accessions)
+data/sra/
+data/fastq/
+*.sra
+*.sra.vdbcache
+SRR*/
+
+# Analysis results (regenerable from phase code)
+01_comparative_genomics/results/
+02_phylogenetics/results/
+03_transcriptomics/results/
+04_integration/results/
+
+# BUSCO and FastQC intermediate/cache files
+busco_downloads/
+*/busco_downloads/
+00_preflight/results/busco/
+00_preflight/results/fastqc/*_fastqc/
+00_preflight/results/fastqc/multiqc_data/
+
+# Tool logs (regenerable)
+*.log
+logs/
+tmp/
+
+# ============================================================
+# ALLOW EXCEPTIONS (source data and validation results)
+# ============================================================
+
+# Source genomes and sequences (DO TRACK)
+!data/
+!data/genomes/
+!data/genomes/*.fasta
+!data/genomes/*.fa
+!data/genomes/*.fasta.gz
+!data/genomes/*.fa.gz
+
+# Phase 0 validation results (DO TRACK - small, prove infrastructure works)
+!00_preflight/results/
+!00_preflight/results/blast/
+!00_preflight/results/blast/*.tsv
+
+# Phase 0 documentation (DO TRACK)
+!00_preflight/*.md
+!00_preflight/*.csv
+
+# ============================================================
+# SNAKEMAKE (if used later)
+# ============================================================
+.snakemake/
+.cache/
