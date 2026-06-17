@@ -11,7 +11,10 @@ __pycache__/
 # macOS / Windows
 .DS_Store
 Thumbs.db
-
+# SRA downloads
+*.sra
+*.sra.vdbcache
+SRR*/
 # Snakemake (if you later use it)
 .snakemake/
 
@@ -36,6 +39,7 @@ tmp/
 *.tar.gz
 *.gz
 *.fna
+*.fq
 
 # BUSCO outputs (large intermediate)
 busco_downloads/
