@@ -100,4 +100,62 @@
 
 ---
 
+## 2026-05-09
+
+### Create and organize BLAST database in a dedicated subdirectory
+- **Context:** `makeblastdb` generated multiple index files (`.nhr`, `.nin`, `.nsq`, etc.) that cluttered the `data/genomes/` directory.
+- **Decision:** Created `data/genomes/blastdb/` and stored all BLAST index files there.
+- **Rationale:** Keeps the project root and data folders clean; separates source FASTA from derived BLAST files; easier to manage and ignore.
+- **Alternatives considered:** Keep BLAST files in `data/genomes/` (less organized), store in a separate top-level `blastdb/` directory (adds extra level).
+
+---
+
+## 2026-06-16
+
+### Use tblastn for protein vs genome search (not BLASTn, BLASTp, etc.)
+- **Context:** We needed to confirm the presence of ATPase γ (a known protein) in the unannotated T. equiperdum genome.
+- **Decision:** Used `tblastn` (protein query vs translated nucleotide database) to find the ortholog.
+- **Rationale:** tblastn translates the genome in all six reading frames and aligns the protein query; works even if annotation is incomplete. BLASTn would miss due to codon degeneracy; BLASTp requires a protein database.
+- **Alternatives considered:** BLASTn (too insensitive), BLASTx (would require nucleotide query, we had protein), tBLASTx (slower, overkill).
+
+---
+
+## 2026-06-17
+
+### Use SRR390436 as SRA test accession
+- **Context:** We needed a small, public, paired-end dataset to test SRA Toolkit functionality.
+- **Decision:** Used SRR390436 (human WGS, 94M spots, ~7 GB) for validation.
+- **Rationale:** Widely used in tutorials; small enough to download quickly; paired-end format tests `--split-files`; publicly accessible without restrictions.
+- **Alternatives considered:** Trypanosome-specific runs (larger, not commonly used for testing), tiny runs (may not stress the pipeline), unavailable runs (risk).
+
+### Use fasterq-dump instead of fastq-dump for FASTQ conversion
+- **Context:** Older `fastq-dump` is slower and less efficient for large runs; `fasterq-dump` is the modern replacement.
+- **Decision:** Used `fasterq-dump -e 4` to convert the test SRA run.
+- **Rationale:** fasterq-dump is faster, supports multi-threading, and is the recommended tool for SRA Toolkit versions ≥3.0.
+- **Alternatives considered:** fastq-dump (slower, deprecated), `sam-dump` (not directly FASTQ).
+
+### Delete test SRA and FASTQ files after validation
+- **Context:** Test files were large (~7 GB SRA, ~10 GB FASTQ) and not needed after confirmation.
+- **Decision:** Removed all `SRR390436*` files from `data/` after successful verification.
+- **Rationale:** Saves disk space; prevents accidental inclusion in Git or backup; keeps project clean.
+- **Alternatives considered:** Keep the SRA file (waste space), compress (still takes space), move to a separate storage location (extra effort).
+
+### Use vdb-config -o n instead of deprecated --list
+- **Context:** SRA Toolkit 3.4.1 deprecated `vdb-config --list`; needed to inspect download cache location.
+- **Decision:** Used `vdb-config -o n` to view current repository configuration.
+- **Rationale:** Works with newer SRA Toolkit versions; provides clear output of cache paths.
+- **Alternatives considered:** Manually check logs (harder), use `prefetch --verify` (confirms existence but not location).
+
+---
+
+## 2026-06-17
+
+### Phase 0 completion: All validation components passed
+- **Context:** BUSCO, BLAST, and SRA tests all successful; project infrastructure ready.
+- **Decision:** Declared Phase 0 complete; moved project focus to Phase 1 (comparative genomics).
+- **Rationale:** All planned validation objectives met; no blockers remain; environment and tools confirmed functional.
+- **Alternatives considered:** Delay Phase 1 until all possible tests done (overkill), proceed with partial validation (risk).
+
+---
+
 **End of Decisions Log**

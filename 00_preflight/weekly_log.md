@@ -50,3 +50,66 @@
 - Git will track thousands of extracted HMM files without explicit `.gitignore` entries; prevent this early.
 - Special characters (parentheses, %) in R string literals can cause unexpected parsing errors; hardcoding is safer than dynamic `paste()`.
 - Manual browser downloads are more reliable than wget or automated tools for large, slow-serving files.
+
+---
+
+## Week 2 (June 9–17, 2026)
+**Phase:** 0 – Pre-flight Validation (Finalization)  
+**Status:** Completed ✅
+
+**Objectives for the Week**
+- [x] Validate BLAST+ installation and database workflow
+- [x] Confirm presence of ATPase γ ortholog in *T. equiperdum* OVI genome
+- [x] Validate SRA Toolkit installation and download workflow
+- [x] Confirm FASTQ conversion functionality
+- [x] Complete all remaining Phase 0 validation tasks
+
+**Completed:**
+
+### BLAST Database Construction
+- Created a nucleotide BLAST database from the *Trypanosoma equiperdum* OVI genome assembly using `makeblastdb`
+- Generated all required BLAST index files (`.nhr`, `.nin`, `.nsq`, `.ndb`, `.not`, `.ntf`, `.nto`)
+- Organized database files into `data/genomes/blastdb/` for cleaner project structure
+- Verified correct database creation and accessibility by BLAST+ tools
+
+### ATPase γ Ortholog Validation
+- Performed a `tblastn` search using the *T. brucei* ATPase γ protein sequence as query against the translated *T. equiperdum* OVI genome database
+- Generated tabular output for downstream inspection and reproducibility
+
+**Top Hit Summary**
+
+| Metric | Value |
+|--------|-------|
+| Subject Contig | CZPT02001112.1 |
+| Percent Identity | **97.806%** |
+| Alignment Length | 319 aa |
+| E-value | **2.79 × 10⁻¹⁴¹** |
+| Bitscore | 440 |
+| Query Coordinates | 1–318 |
+| Subject Coordinates | 60,117–61,073 |
+
+**Interpretation:**
+- ATPase γ ortholog successfully detected in the OVI assembly
+- Alignment covers essentially the full protein length
+- Extremely low E-value and high sequence identity confirm a highly conserved ortholog
+- BLAST database creation and query workflows are functioning correctly
+- The result supports the suitability of the genome assembly for downstream comparative analyses involving ATPase γ and other nuclear genes associated with mitochondrial function
+
+### SRA Toolkit Validation
+
+**Download Test:**
+- Installed and verified SRA Toolkit functionality within the `tryp-kdna` Conda environment
+- Downloaded public SRA accession **SRR390436** using `prefetch`
+- Successfully retrieved:
+  - `SRR390436.sra`
+  - `SRR390436.sra.vdbcache`
+
+**Configuration Investigation:**
+- Confirmed that SRA Toolkit stores downloaded runs within the project directory under the current repository configuration
+- Investigated repository and cache settings using `vdb-config`
+- Verified that the downloaded accession could be located and recognized locally
+
+**Verification:**
+Executed:
+```bash
+prefetch --verify yes SRR390436
