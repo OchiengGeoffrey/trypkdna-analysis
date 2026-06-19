@@ -119,3 +119,47 @@ tmp/
 .DS_Store
 Thumbs.db
 
+
+# SRA test downloads (regenerable)
+00_preflight/results/sra-test/
+
+# ============================================================
+# MANUSCRIPT FILES (regenerable artifacts)
+# ============================================================
+
+# LaTeX compilation artifacts
+00_manuscript/latex/*.aux
+00_manuscript/latex/*.bbl
+00_manuscript/latex/*.bcf
+00_manuscript/latex/*.blg
+00_manuscript/latex/*.fdb_latexmk
+00_manuscript/latex/*.fls
+00_manuscript/latex/*.lof
+00_manuscript/latex/*.log
+00_manuscript/latex/*.lot
+00_manuscript/latex/*.out
+00_manuscript/latex/*.run.xml
+00_manuscript/latex/*.synctex.gz
+00_manuscript/latex/*.toc
+00_manuscript/latex/main.pdf
+
+# RStudio workspace
+00_manuscript/analysis/.Rhistory
+00_manuscript/analysis/.RData
+00_manuscript/analysis/.Ruserdata
+
+# Knitted R Markdown outputs
+00_manuscript/analysis/*.html
+00_manuscript/analysis/*_files/
+00_manuscript/analysis/*_cache/
+
+# Temporary/working figures
+00_manuscript/latex/figures/tmp_*
+00_manuscript/latex/figures/*_draft*
+00_manuscript/latex/figures/*_v[0-9]*
+00_manuscript/latex/figures/*_test*
+00_manuscript/latex/figures/*_working*
+
+# SRA test downloads
+00_preflight/results/sra-test/
+
