@@ -1,0 +1,60 @@
+\documentclass[12pt,a4paper,oneside]{book}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[utf-8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\onehalfspacing
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+
+% Custom commands
+\newcommand{\teq}{\textit{Trypanosoma equiperdum}}
+\newcommand{\tev}{\textit{Trypanosoma evansi}}
+\newcommand{\tbr}{\textit{Trypanosoma brucei}}
+
+% ============================================================
+% TITLE AND METADATA
+% ============================================================
+\title{Genomic and Transcriptomic Constraints on Kinetoplast DNA Retention in \teq{}: \\
+A Three-Layer Mechanistic Model}
+\author{Geoffrey Ochieng}
+\date{\today}
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+\include{chapters/01_introduction}
+\include{chapters/02_methods}
+\include{chapters/03_results}
+\include{chapters/04_discussion}
+\include{chapters/05_conclusion}
+
+% ============================================================
+% BIBLIOGRAPHY
+% ============================================================
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

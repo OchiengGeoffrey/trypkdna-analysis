@@ -1,0 +1,34 @@
+---
+title: "Phase 1: Comparative Genomics"
+author: "Geoffrey Ochieng"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(ggplot2)
+```
+
+# Phase 1: Comparative Genomics
+
+## Objectives
+
+- [ ] Retrieve sequences for ATPase γ and related genes
+- [ ] Generate multiple sequence alignments
+- [ ] Calculate dN/dS (omega) values
+- [ ] Test for purifying selection
+
+## Data
+
+*To be added during Phase 1*
+
+## Methods
+
+*To be added during Phase 1*
+
+## Results
+
+*To be added during Phase 1*
+

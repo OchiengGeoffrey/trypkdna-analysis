@@ -1,0 +1,68 @@
+---
+title: "Phase 0: Pre-Flight Validation"
+author: "Geoffrey Ochieng"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+```
+
+# Phase 0: Pre-Flight Validation
+
+## BLAST Results
+
+```{r blast}
+blast <- read.delim("../../00_preflight/results/blast/ATPase_gamma_tblastn.tsv", header=FALSE)
+colnames(blast) <- c("qseqid", "sseqid", "pident", "length", "evalue", "bitscore", 
+                     "mismatch", "gapopen", "qstart", "qend", "sstart", "send")
+
+blast %>% 
+  select(qseqid, sseqid, pident, length, evalue, bitscore) %>%
+  kable(caption = "BLAST tBLASTn Results for ATPase γ") %>%
+  kable_styling()
+```
+
+**Interpretation:**
+- Identity: 97.806% (highly conserved)
+- E-value: 2.79e-141 (extremely significant)
+- Full-length hit: 319/319 aa (99.7% coverage)
+
+## BUSCO Results
+
+```{r busco}
+busco_df <- data.frame(
+  Category = c("Complete (S)", "Complete (D)", "Fragmented", "Missing"),
+  Percentage = c(97.7, 0.0, 0.7, 1.5)
+)
+
+ggplot(busco_df, aes(x=reorder(Category, -Percentage), y=Percentage, fill=Category)) +
+  geom_bar(stat="identity", color="black") +
+  scale_fill_manual(values=c("Complete (S)"="darkgreen", "Complete (D)"="lightgreen",
+                              "Fragmented"="orange", "Missing"="red")) +
+  labs(title="BUSCO Genome Completeness", x="Category", y="Percentage (%)") +
+  theme_minimal() + 
+  theme(legend.position="none") +
+  ylim(0, 105)
+
+ggsave("../latex/figures/busco_completeness.png", width=6, height=4, dpi=300)
+```
+
+## SRA Toolkit Test
+
+**Accession:** SRR390436  
+**Spots:** 94,034,194  
+**Reads:** 188,068,388  
+**Status:** ✓ Successfully downloaded and converted
+
+## Summary
+
+All Phase 0 validation objectives completed successfully. Infrastructure is ready for Phase 1.
+
