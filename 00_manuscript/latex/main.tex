@@ -1,60 +1,151 @@
-\documentclass[12pt,a4paper,oneside]{book}
+\documentclass[12pt]{article}
 
 % ============================================================
-% PACKAGES
+% ENCODING AND FONTS
 % ============================================================
-\usepackage[utf-8]{inputenc}
+
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[margin=1in]{geometry}
+\usepackage{newtxtext,newtxmath} % Times New Roman-like font
+
+% ============================================================
+% PAGE FORMAT
+% ============================================================
+
+\usepackage[
+a4paper,
+margin=1in
+]{geometry}
+
 \usepackage{setspace}
+\onehalfspacing
+
+% Traditional scientific manuscript paragraph style
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{0pt}
+
+% ============================================================
+% FIGURES, TABLES, AND GRAPHICS
+% ============================================================
+
 \usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{natbib}
-\usepackage{hyperref}
 \usepackage{float}
 \usepackage{booktabs}
-\usepackage{tabularx}
 
-\onehalfspacing
-\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
-
-% Custom commands
-\newcommand{\teq}{\textit{Trypanosoma equiperdum}}
-\newcommand{\tev}{\textit{Trypanosoma evansi}}
-\newcommand{\tbr}{\textit{Trypanosoma brucei}}
-
-% ============================================================
-% TITLE AND METADATA
-% ============================================================
-\title{Genomic and Transcriptomic Constraints on Kinetoplast DNA Retention in \teq{}: \\
-A Three-Layer Mechanistic Model}
-\author{Geoffrey Ochieng}
-\date{\today}
+\usepackage{caption}
+\captionsetup{
+format=plain,
+labelsep=colon,
+font=small,
+singlelinecheck=false
+}
 
 % ============================================================
-% DOCUMENT
+% SECTION FORMATTING
 % ============================================================
+
+\usepackage{titlesec}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries}
+{\thesection}
+{1em}
+{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries}
+{\thesubsection}
+{1em}
+{}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}
+{\thesubsubsection}
+{1em}
+{}
+
+% ============================================================
+% HEADERS AND FOOTERS
+% ============================================================
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ============================================================
+% REFERENCES
+% ============================================================
+
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\setcitestyle{authoryear,open={(},close={)}}
+
+% ============================================================
+% CUSTOM COMMANDS
+% ============================================================
+
+\newcommand{\teq}{\textit{T. equiperdum}}
+\newcommand{\tev}{\textit{T. evansi}}
+
+% ============================================================
+% HYPERLINKS (LOAD LAST)
+% ============================================================
+
+\usepackage{hyperref}
+
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+citecolor=blue,
+urlcolor=blue,
+bookmarksnumbered=true
+}
+
+% ============================================================
+% DOCUMENT START
+% ============================================================
+
 \begin{document}
+
+\title{Retention of Kinetoplast DNA in \textit{Trypanosoma equiperdum}: Genomic and Comparative Analyses}
+
+\author{Geoffrey Omondi}
+
+\date{\today}
 
 \maketitle
 
-\tableofcontents
-\listoffigures
-\listoftables
+% ============================================================
+% ABSTRACT
+% ============================================================
 
-\mainmatter
+\begin{abstract}
 
-\include{chapters/01_introduction}
-\include{chapters/02_methods}
-\include{chapters/03_results}
-\include{chapters/04_discussion}
-\include{chapters/05_conclusion}
+Your abstract goes here.
+
+\end{abstract}
 
 % ============================================================
-% BIBLIOGRAPHY
+% MAIN SECTIONS
 % ============================================================
-\bibliographystyle{plainnat}
+
+\input{sections/01_introduction.tex}
+
+\input{sections/02_methods.tex}
+
+\input{sections/03_results.tex}
+
+\input{sections/04_discussion.tex}
+
+\input{sections/05_conclusion.tex}
+
+% ============================================================
+% REFERENCES
+% ============================================================
+
 \bibliography{references}
 
 \end{document}
