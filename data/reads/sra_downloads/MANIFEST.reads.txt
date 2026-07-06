@@ -1,0 +1,6 @@
+-rw-r--r-- 1 geoffochieng geoffochieng 2.4G Jul  6 15:07 Tequiperdum_Botat/SRR5307576_1.fastq
+-rw-r--r-- 1 geoffochieng geoffochieng 2.4G Jul  6 15:07 Tequiperdum_Botat/SRR5307576_2.fastq
+-rw-r--r-- 1 geoffochieng geoffochieng 4.2G Jul  6 14:25 Tevansi_MU09/SRR5307968_1.fastq
+-rw-r--r-- 1 geoffochieng geoffochieng 4.2G Jul  6 14:25 Tevansi_MU09/SRR5307968_2.fastq
+-rw-r--r-- 1 geoffochieng geoffochieng 5.0G Jul  6 14:51 Tevansi_MU10/SRR5307967_1.fastq
+-rw-r--r-- 1 geoffochieng geoffochieng 5.0G Jul  6 14:51 Tevansi_MU10/SRR5307967_2.fastq

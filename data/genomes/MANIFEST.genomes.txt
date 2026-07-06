@@ -1,0 +1,5 @@
+-rw-r--r-- 1 geoffochieng geoffochieng 436 Jun 25 15:21 Tbrucei_ATPase_gamma.fasta
+-rw------- 1 geoffochieng geoffochieng 26M Jul  5 16:48 Tbrucei_TREU927.fasta
+-rw------- 1 geoffochieng geoffochieng 27M Jul  6 05:04 Tequiperdum_IVMt1.fasta
+-rw-r--r-- 1 geoffochieng geoffochieng 26M May  7 20:36 Tequiperdum_OVI.fasta
+-rw------- 1 geoffochieng geoffochieng 25M Jul  6 05:22 Tevansi_STIB805.fasta
