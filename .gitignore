@@ -163,3 +163,13 @@ Thumbs.db
 # SRA test downloads
 00_preflight/results/sra-test/
 
+
+# Phase 1 genome and read data
+data/genomes/*.fasta
+data/genomes/ncbi_dataset/
+data/reads/sra_downloads/**/*.fastq
+
+# NCBI temporary files
+*.zip
+README.md
+md5sum.txt
