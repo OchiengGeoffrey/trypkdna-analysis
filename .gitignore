@@ -173,3 +173,26 @@ data/reads/sra_downloads/**/*.fastq
 *.zip
 README.md
 md5sum.txt
+
+# Phase 1 intermediate files (temporary)
+*.vcf
+*.vcf.gz
+*.vcf.gz.tbi
+*.seq
+*.sam
+
+# Phase 1 consolidated outputs (before final commit)
+all_atpase_gamma*.faa
+all_atpase_gamma*.fasta
+
+# Temporary extraction files
+T_equiperdum_Botat_cds.fasta
+treu927_aln.seq
+
+# NCBI temporary files (already in .gitignore, but confirming)
+*.zip
+README.md
+md5sum.txt
+
+# Phase 1 sequences (not large but can be recreated)
+01_comparative_genomics/data/sequences/*.fai
