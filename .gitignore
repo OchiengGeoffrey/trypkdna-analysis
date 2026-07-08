@@ -196,3 +196,7 @@ md5sum.txt
 
 # Phase 1 sequences (not large but can be recreated)
 01_comparative_genomics/data/sequences/*.fai
+
+# Allow project documentation
+!01_comparative_genomics/README.md
+!README.md
