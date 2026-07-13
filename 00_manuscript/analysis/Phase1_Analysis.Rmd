@@ -13,22 +13,140 @@ library(ggplot2)
 
 # Phase 1: Comparative Genomics
 
+## Biological Question
+
+Why does *Trypanosoma equiperdum* OVI retain kinetoplast DNA despite belonging to a lineage in which kDNA loss has evolved repeatedly?
+
+Phase 1 investigates whether ATPase γ and other mitochondrial proteins show signatures of functional constraint or compensatory evolution across dyskinetoplastic and akinetoplastic *Trypanozoon* lineages.
+
+
+
 ## Objectives
 
-- [ ] Retrieve sequences for ATPase γ and related genes
-- [ ] Generate multiple sequence alignments
+- [x] Retrieve sequences for ATPase γ and related genes
+- [x] Reconstruct ATPase γ sequences from short-reads datasets
+- [x] Generate protein alignments
+- [x] Generate multiple sequence alignments
 - [ ] Calculate dN/dS (omega) values
+- [ ] Compare selection patterns among lineages
 - [ ] Test for purifying selection
 
-## Data
+# Data
 
 *To be added during Phase 1*
 
-## Methods
+## Study Isolates
+
+| Strain | Species | Phenotype |
+|----------|----------|----------|
+| TREU927 | *T. brucei* | Reference |
+| OVI | *T. equiperdum* | Dyskinetoplastic |
+| BoTat | *T. equiperdum* | Akinetoplastic |
+| IVM-t1 | *T. equiperdum* | Dyskinetoplastic |
+| STIB805 | *T. evansi* | Akinetoplastic |
+| MU09 | *T. evansi* Type A | Akinetoplastic |
+| MU10 | *T. evansi* Type B | Akinetoplastic |
+| RoTat 1.2 | *T. evansi* Type A | Dyskinetoplastic |
+
+# Methods
 
 *To be added during Phase 1*
 
-## Results
+## ATPase γ Extraction
 
-*To be added during Phase 1*
+ATPase γ coding sequences were extracted from assembled genomes using BLAST searches against the *T. brucei* ATPase γ reference sequence.
+
+For isolates lacking genome assemblies, ATPase γ sequences were reconstructed by mapping sequencing reads against the OVI ATPase γ coding sequence.
+
+### Read Mapping Pipeline
+
+```bash
+minimap2
+samtools sort
+samtools index
+bcftools mpileup
+bcftools call
+bcftools consensus
+transeq
+```
+
+## Multiple Sequence Alignment
+
+Protein sequences were translated using EMBOSS `transeq` and aligned using MAFFT v7.
+
+```bash
+mafft --auto ATPase_gamma_all.faa > ATPase_gamma_all_aligned.faa
+```
+
+# Results
+
+## ATPase γ Mutation Validation
+
+ATPase γ sequences were recovered for all study isolates.
+
+### Mutation Summary
+
+| Strain | ATPase γ status |
+|----------|----------|
+| TREU927 | Wild type |
+| OVI | Wild type |
+| IVM-t1 | Wild type |
+| STIB805 | A281del |
+| MU09 | A281del |
+| RoTat | A281del (heterozygous) |
+| MU10 | M282L (heterozygous) |
+| BoTat | A273P |
+
+## Validation of RoTat ATPase γ
+
+Initial haploid consensus calling suggested a wild-type ATPase γ sequence.
+
+Re-analysis using diploid variant calling recovered a heterozygous deletion:
+
+| Position | REF | ALT | Genotype |
+|----------|----------|----------|----------|
+| 838 | TCTGCT | TCT | 0/1 |
+
+This deletion removes nucleotides 841–843 (GCT), corresponding to the canonical A281del mutation previously reported in Type A *T. evansi* isolates.
+
+## Validation of MU10 ATPase γ
+
+Initial haploid consensus reconstruction yielded a wild-type methionine residue at codon 282.
+
+Inspection of the diploid VCF revealed:
+
+| Position | REF | ALT | Genotype |
+|----------|----------|----------|----------|
+| 844 | A | T | 0/1 |
+
+The A844T polymorphism corresponds to the M282L ATPase γ mutation reported in Type B *T. evansi* isolates.
+
+## Methodological Observation
+
+Haploid consensus generation masked biologically relevant heterozygous ATPase γ variants in both MU10 and RoTat.
+
+Direct inspection of BAM files, pileup data, and diploid VCFs was necessary to recover the expected compensatory mutations.
+
+# Preliminary Interpretation
+
+The ATPase γ dataset recapitulates the major compensatory mutation classes reported in dyskinetoplastic and akinetoplastic *Trypanozoon* lineages:
+
+- Wild type (TREU927, OVI, IVM-t1)
+- A281del (STIB805, MU09, RoTat)
+- M282L (MU10)
+- A273P (BoTat)
+
+These results validate the sequence reconstruction workflow and provide the foundation for downstream codon-based selection analyses.
+
+### Pipeline Validation
+
+This analysis demonstrated that haploid consensus generation can obscure biologically relevant heterozygous mutations. Validation through direct inspection of BAM, pileup, and diploid VCF data was essential for accurate mutation characterization.
+
+# Next Steps
+
+- Generate codon alignment
+- Construct ATPase γ phylogeny
+- Estimate pairwise dN/dS
+- Run codeml branch analyses
+- Compare ATPase γ evolutionary constraint among lineages
 
