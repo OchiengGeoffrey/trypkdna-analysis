@@ -142,6 +142,10 @@ These results validate the sequence reconstruction workflow and provide the foun
 
 This analysis demonstrated that haploid consensus generation can obscure biologically relevant heterozygous mutations. Validation through direct inspection of BAM, pileup, and diploid VCF data was essential for accurate mutation characterization.
 
+
+## IQ-TREE statistics
+ATPase γ was highly conserved across all examined strains. Of 915 aligned nucleotide positions, 900 (98.4%) were invariant and only six sites were parsimony informative. This extensive conservation is consistent with strong evolutionary constraint on ATPase γ despite differences in kinetoplast DNA status.
+
 # Next Steps
 
 - Generate codon alignment
