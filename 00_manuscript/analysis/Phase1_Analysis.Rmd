@@ -146,6 +146,111 @@ This analysis demonstrated that haploid consensus generation can obscure biologi
 ## IQ-TREE statistics
 ATPase γ was highly conserved across all examined strains. Of 915 aligned nucleotide positions, 900 (98.4%) were invariant and only six sites were parsimony informative. This extensive conservation is consistent with strong evolutionary constraint on ATPase γ despite differences in kinetoplast DNA status.
 
+## ATPase γ Dyskinetoplasty-Associated Residue Analysis
+
+Four ATPase γ residues previously associated with dyskinetoplasty
+(L262, A273, A281, and M282) were examined across the eight taxa.
+Residues were extracted from the final ATPase γ protein alignment
+using *T. brucei* TREU927 as the reference sequence.
+
+```{r mutation-matrix-import, message=FALSE}
+
+library(tidyverse)
+library(gt)
+
+mutation_matrix <- read_csv(
+  "01_comparative_genomics/results/alignment/ATPase_gamma_mutation_matrix.csv"
+)
+
+mutation_matrix
+
+```r
+```{r mutation-matrix-table}
+
+mutation_table <- mutation_matrix %>%
+  gt() %>%
+  tab_header(
+    title = "ATPase γ Mutation Matrix",
+    subtitle = paste(
+      "Dyskinetoplasty-associated residues L262, A273, A281 and M282"
+    )
+  ) %>%
+  cols_label(
+    Strain = "Strain",
+    `262` = "L262",
+    `273` = "A273",
+    `281` = "A281",
+    `282` = "M282"
+  ) %>%
+  tab_source_note(
+    source_note =
+      "* T. evansi MU10 carries a heterozygous M282L variant "
+      "detected by VCF analysis (GT=0/1; AD=45,32; DP=81). "
+      "The consensus sequence used for phylogenetic reconstruction "
+      "retained methionine at this position."
+  )
+
+mutation_table
+
+Immediately below the table:
+
+```
+markdown
+### Interpretation
+
+The ATPase γ mutation analysis revealed that *T. equiperdum* OVI retained
+the canonical amino acid state at all four dyskinetoplasty-associated
+positions. OVI was identical to the kDNA-dependent reference strain
+*T. brucei* TREU927.
+
+In contrast, dyskinetoplastic lineages showed lineage-specific variation:
+*T. equiperdum* BoTat carried A273P, *T. evansi* MU09 and STIB805 carried
+A281 deletions, and *T. evansi* MU10 contained a heterozygous M282L variant.
+
+These observations indicate that OVI lacks known ATPase γ adaptations
+associated with dyskinetoplasty and retains a sequence consistent with
+continued mitochondrial constraint.
+
+## Supplementary Metadata
+
+The ATPase γ comparative dataset consisted of eight Trypanozoon taxa.
+Strain information, kDNA phenotype classification, sequence source,
+and accession/read identifiers are provided in Supplementary Table S1.
+
+```{r supplementary-metadata}
+
+library(readr)
+library(gt)
+
+metadata <- read_csv(
+  "01_comparative_genomics/data/metadata/ATPase_gamma_metadata.csv"
+)
+
+metadata %>%
+  gt() %>%
+  tab_header(
+    title = "Supplementary Table S1",
+    subtitle = "Metadata for ATPase γ comparative genomics dataset"
+  )
+
+```
+
+## Suggested Supplementary Table caption
+
+**Supplementary Table S1. Metadata for ATPase γ comparative genomics dataset.**  
+Information includes strain designation, species identity, kinetoplast DNA phenotype,
+sequence source, accession or sequencing read identifier, and reconstruction method. 
+Genome-derived sequences were extracted from available assemblies, whereas strains without 
+suitable assemblies were recovered using reference-guided consensus calling from raw sequencing 
+reads.
+
+---
+
+One additional benefit: when we move to the next phase (POLIB, POLIC, POLID, TAC genes), 
+this same metadata table can become the **master sample sheet** for the entire project. 
+We can simply add columns for each gene analysis rather than creating new metadata files 
+repeatedly. This will make the final manuscript workflow much cleaner.
+
 # Next Steps
 
 - Generate codon alignment
