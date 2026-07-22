@@ -1,7 +1,7 @@
 Gene,Category,TREU927_GeneID,Expected_Length_aa,Status,Notes
 ATPF1G,ATP_synthase,Tb927.10.180,305,Complete,Phase1A complete
-ATPF1A,ATP_synthase,Tb927.10.8260,~550,Pending,ATP synthase alpha subunit
-ATPF1B,ATP_synthase,Tb927.3.1380,~500,Pending,ATP synthase beta subunit
-POLIB,kDNA_replication,Tb927.11.13840,~1000,Pending,Mitochondrial DNA polymerase
-TAC102,kDNA_segregation,Tb927.7.2390,~900,Pending,Tripartite attachment complex
-ATOM40,Protein_import,Tb927.11.10060,~350,Pending,Mitochondrial outer membrane translocase
+ATPF1A,ATP_synthase,Tb927.7.7420,584,Verified,Tandem duplicate; reference copy used
+ATPF1B,ATP_synthase,Tb927.3.1380,519,Verified,ATP synthase beta subunit
+POLIB,kDNA_replication,Tb927.11.13840,988,Verified,Mitochondrial DNA polymerase IB
+TAC102,kDNA_segregation,Tb927.7.2390,951,Verified,Tripartite attachment complex protein
+ATOM40,Protein_import,Tb927.9.9660,351,Verified,Archaic translocase outer membrane 40
