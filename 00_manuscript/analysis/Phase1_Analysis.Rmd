@@ -251,6 +251,114 @@ this same metadata table can become the **master sample sheet** for the entire p
 We can simply add columns for each gene analysis rather than creating new metadata files 
 repeatedly. This will make the final manuscript workflow much cleaner.
 
+## Figure 1 (IQ-TREE)
+```{r tree-libraries, message=FALSE}
+
+library(ape)
+library(ggtree)
+library(treeio)
+library(ggplot2)
+
+
+---
+
+## Read the tree
+
+```r id="kl2y94"
+```{r read-tree}
+
+tree <- read.tree(
+  "01_comparative_genomics/results/tree/ATPase_gamma.contree"
+)
+
+tree
+
+
+---
+
+## Publication-quality figure
+
+```r id="e3gd4l"
+```{r figure1-tree, fig.width=8, fig.height=6}
+
+ggtree(tree) +
+  geom_tiplab(size = 3.5) +
+  geom_text2(
+    aes(subset = !isTip, label = label),
+    hjust = -0.3,
+    size = 3
+  ) +
+  theme_tree2() +
+  labs(
+    title = "ATPase γ Codon Phylogeny",
+    subtitle = "IQ-TREE, KOSI07+FU+I, 1000 UFBoot replicates"
+  )
+
+
+This will display:
+
+- taxon names
+- bootstrap values
+- branch lengths
+
+---
+
+# Export Figure 1
+
+Add:
+
+```r id="2t9z25"
+```{r save-tree, eval=FALSE}
+
+p <- ggtree(tree) +
+  geom_tiplab(size = 3.5) +
+  geom_text2(
+    aes(subset = !isTip, label = label),
+    hjust = -0.3,
+    size = 3
+  ) +
+  theme_tree2()
+
+ggsave(
+  "01_comparative_genomics/results/tree/Figure1_ATPase_gamma_tree.pdf",
+  p,
+  width = 8,
+  height = 6
+)
+
+
+---
+
+# Figure Caption
+
+I would use:
+
+:::writing{variant="document" id="63814"}
+Figure 1. Maximum-likelihood codon phylogeny of ATPase γ (ATPF1G) across eight Trypanozoon taxa. The tree was inferred from a 915 bp codon alignment (305 codons) using IQ-TREE under the KOSI07+FU+I substitution model selected by ModelFinder. Numbers at internal nodes indicate ultrafast bootstrap support values from 1,000 replicates. ATPase γ was highly conserved across all taxa, with 290 of 305 codons invariant and only seven parsimony-informative sites. T. equiperdum OVI retained a canonical ATPase γ sequence and formed a distinct branch relative to the remaining T. equiperdum and T. evansi lineages.
+:::
+
+---
+
+# One thing I would change
+
+The default labels:
+
+```text id="dqm8yk"
+T_equiperdum_OVI
+
+tree$tip.label <- c(
+  "T. brucei TREU927",
+  "T. equiperdum BoTat",
+  "T. equiperdum IVM-t1",
+  "T. evansi MU09",
+  "T. evansi MU10",
+  "T. evansi RoTat",
+  "T. evansi STIB805",
+  "T. equiperdum OVI"
+)
+
+```
+
 # Next Steps
 
 - Generate codon alignment
