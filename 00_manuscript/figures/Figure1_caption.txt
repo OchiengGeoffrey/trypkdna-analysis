@@ -1,0 +1,18 @@
+
+FIGURE 1. ATP Synthase γ Subunit Phylogeny
+
+Phylogenetic tree of ATPase γ codon sequences from eight Trypanosoma strains, 
+inferred using IQ-TREE with the KOSI07+FU+I model and 1000 UFBoot replicates. 
+Bootstrap support values are shown at internal nodes. Tip labels are color-coded 
+by kDNA phenotype: green (kinetoplastic), orange (dyskinetoplastic with wild-type 
+ATPase γ), blue (dyskinetoplastic with A273P escape mutation), red (akinetoplastic 
+Type A with A281del), and purple (akinetoplastic Type B).
+
+The alignment contained 290 constant sites and 7 parsimony-informative sites 
+(ω = 0.202), indicating strong purifying selection. T. equiperdum OVI retains 
+wild-type ATPase γ despite dyskinetoplasty, suggesting ATPase γ alone is 
+insufficient to explain kDNA retention phenotypes.
+
+*MU10 contains a heterozygous M282L variant in VCF data but retained M in the 
+final consensus sequence.
+

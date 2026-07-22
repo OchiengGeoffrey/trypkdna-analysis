@@ -1,0 +1,9 @@
+Strain,Species,kDNA_phenotype,Sequence_source,Accession_or_Reads,Assembly_or_Mapping,Notes
+T_brucei_TREU927,Trypanosoma brucei,kDNA retained,Genome assembly,GCA_000002445.1,Assembly-derived,Reference kDNA-dependent strain
+T_equiperdum_OVI,Trypanosoma equiperdum,kDNA retained,Genome assembly,GCA_001457755.2,Assembly-derived,Primary study strain
+T_equiperdum_IVMt1,Trypanosoma equiperdum,kDNA retained,Genome assembly,GCA_003543875.1,Assembly-derived,kDNA-retaining strain
+T_equiperdum_BoTat,Trypanosoma equiperdum,Dyskinetoplastic,Genome assembly / published sequence,NA,Assembly-derived,Reported A273P ATPase gamma variant
+T_evansi_RoTat,Trypanosoma evansi,Dyskinetoplastic,Genome assembly,NA,Assembly-derived,Dyskinetoplastic reference strain
+T_evansi_STIB805,Trypanosoma evansi,Dyskinetoplastic,Genome assembly,GCA_917563935.1,Assembly-derived,A281 deletion detected
+T_evansi_MU09,Trypanosoma evansi,Dyskinetoplastic,Raw reads,SRR5307968,Reference-guided consensus,A281 deletion detected
+T_evansi_MU10,Trypanosoma evansi,Dyskinetoplastic,Raw reads,SRR5307967,Reference-guided consensus,M282L heterozygous variant detected

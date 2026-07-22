@@ -200,3 +200,5 @@ md5sum.txt
 # Allow project documentation
 !01_comparative_genomics/README.md
 !README.md
+
+Rplots.pdf
